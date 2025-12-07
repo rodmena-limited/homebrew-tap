@@ -1,12 +1,12 @@
 # Homebrew Tap
 
-This is the official Homebrew tap for [ReTunnel](https://retunnel.com).
+Official Homebrew tap for Rodmena Limited tools.
 
 ## Installation
 
 ```bash
 brew tap rodmena-limited/tap
-brew install retunnel
+brew install <formula>
 ```
 
 ## Available Formulae
@@ -14,10 +14,12 @@ brew install retunnel
 | Formula | Description |
 |---------|-------------|
 | retunnel | Secure tunnel service to expose local servers to the internet |
+| issuedb | Command-line issue tracking system for software development projects |
+| scriptplan | Precise project scheduling engine with minute-level accuracy |
 
 ## Updating
 
 ```bash
 brew update
-brew upgrade retunnel
+brew upgrade <formula>
 ```
