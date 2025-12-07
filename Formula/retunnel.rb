@@ -10,8 +10,9 @@ class Retunnel < Formula
   depends_on "python@3.12"
 
   def install
-    venv = virtualenv_create(libexec, "python3.12")
-    venv.pip_install "retunnel==#{version}"
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", libexec
+    system libexec/"bin/pip", "install", "--upgrade", "pip"
+    system libexec/"bin/pip", "install", buildpath
     bin.install_symlink Dir[libexec/"bin/retunnel"]
   end
 
