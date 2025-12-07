@@ -7,21 +7,30 @@ class Retunnel < Formula
 
   depends_on "python@3.12"
 
-  # Skip relocation of Python packages with native extensions
-  skip_relocation "libexec"
-
   def install
-    # Create virtualenv and install retunnel with all dependencies
-    venv = libexec/"venv"
-    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", venv
-    system venv/"bin/pip", "install", "--upgrade", "pip"
-    system venv/"bin/pip", "install", buildpath
+    # Install to a separate directory that won't be relocated
+    venv_dir = var/"lib/retunnel/venv"
 
-    # Create wrapper script that uses the virtualenv
+    # Create virtualenv during install
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
+    system venv_dir/"bin/pip", "install", "--upgrade", "pip"
+    system venv_dir/"bin/pip", "install", buildpath
+
+    # Create wrapper script
     (bin/"retunnel").write <<~EOS
       #!/bin/bash
-      exec "#{venv}/bin/python" -m retunnel.client.cli "$@"
+      exec "#{venv_dir}/bin/retunnel" "$@"
     EOS
+  end
+
+  def post_install
+    # Ensure venv exists after installation
+    venv_dir = var/"lib/retunnel/venv"
+    return if (venv_dir/"bin/retunnel").exist?
+
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
+    system venv_dir/"bin/pip", "install", "--upgrade", "pip"
+    system venv_dir/"bin/pip", "install", "retunnel==#{version}"
   end
 
   test do
