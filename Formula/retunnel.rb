@@ -7,6 +7,9 @@ class Retunnel < Formula
 
   depends_on "python@3.12"
 
+  # Skip relocation of Python packages with native extensions
+  skip_relocation "libexec"
+
   def install
     # Create virtualenv and install retunnel with all dependencies
     venv = libexec/"venv"
