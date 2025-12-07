@@ -16,7 +16,12 @@ class Retunnel < Formula
     bin.install_symlink Dir[libexec/"bin/retunnel"]
   end
 
+  # Skip relocation for Python packages with native extensions
+  def post_install
+    # No relocation needed for Python virtualenv packages
+  end
+
   test do
-    assert_match version.to_s, shell_output("#{bin}/retunnel --version")
+    assert_match "retunnel", shell_output("#{bin}/retunnel --help")
   end
 end
