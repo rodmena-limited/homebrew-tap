@@ -10,10 +10,9 @@ class Retunnel < Formula
   depends_on "python@3.12"
 
   def install
-    virtualenv_install_with_resources(
-      system_site_packages: false,
-      extra_pip_args: ["--index-url", "https://pypi.org/simple"]
-    )
+    venv = virtualenv_create(libexec, "python3.12")
+    venv.pip_install "retunnel==#{version}"
+    bin.install_symlink Dir[libexec/"bin/retunnel"]
   end
 
   test do
