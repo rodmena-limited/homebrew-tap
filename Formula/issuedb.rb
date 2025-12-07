@@ -12,7 +12,7 @@ class Issuedb < Formula
 
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
     system venv_dir/"bin/pip", "install", "--upgrade", "pip"
-    system venv_dir/"bin/pip", "install", buildpath
+    system venv_dir/"bin/pip", "install", "#{buildpath}[web]"
 
     (bin/"issuedb").write <<~EOS
       #!/bin/bash
@@ -26,7 +26,7 @@ class Issuedb < Formula
 
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
     system venv_dir/"bin/pip", "install", "--upgrade", "pip"
-    system venv_dir/"bin/pip", "install", "issuedb==#{version}"
+    system venv_dir/"bin/pip", "install", "issuedb[web]==#{version}"
   end
 
   test do
