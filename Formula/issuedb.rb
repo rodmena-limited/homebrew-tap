@@ -16,13 +16,13 @@ class Issuedb < Formula
 
     (bin/"issuedb").write <<~EOS
       #!/bin/bash
-      exec "#{venv_dir}/bin/issuedb" "$@"
+      exec "#{venv_dir}/bin/issuedb-cli" "$@"
     EOS
   end
 
   def post_install
     venv_dir = var/"lib/issuedb/venv"
-    return if (venv_dir/"bin/issuedb").exist?
+    return if (venv_dir/"bin/issuedb-cli").exist?
 
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
     system venv_dir/"bin/pip", "install", "--upgrade", "pip"
