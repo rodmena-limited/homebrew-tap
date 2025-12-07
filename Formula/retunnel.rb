@@ -1,6 +1,4 @@
 class Retunnel < Formula
-  include Language::Python::Virtualenv
-
   desc "Secure tunnel service to expose local servers to the internet"
   homepage "https://docs.retunnel.com"
   url "https://files.pythonhosted.org/packages/a2/30/2152dcb99e953ca18e2596fa6bb48740060a4282dcf294100462c614f168/retunnel-2.5.2.tar.gz"
@@ -10,15 +8,17 @@ class Retunnel < Formula
   depends_on "python@3.12"
 
   def install
-    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", libexec
-    system libexec/"bin/pip", "install", "--upgrade", "pip"
-    system libexec/"bin/pip", "install", buildpath
-    bin.install_symlink Dir[libexec/"bin/retunnel"]
-  end
+    # Create virtualenv and install retunnel with all dependencies
+    venv = libexec/"venv"
+    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", venv
+    system venv/"bin/pip", "install", "--upgrade", "pip"
+    system venv/"bin/pip", "install", buildpath
 
-  # Skip relocation for Python packages with native extensions
-  def post_install
-    # No relocation needed for Python virtualenv packages
+    # Create wrapper script that uses the virtualenv
+    (bin/"retunnel").write <<~EOS
+      #!/bin/bash
+      exec "#{venv}/bin/python" -m retunnel.client.cli "$@"
+    EOS
   end
 
   test do
