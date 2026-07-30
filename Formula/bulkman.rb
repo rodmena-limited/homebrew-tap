@@ -8,23 +8,14 @@ class Bulkman < Formula
   depends_on "python@3.12"
 
   def install
-    venv_dir = var/"lib/bulkman/venv"
+    venv_dir = libexec
 
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
     system venv_dir/"bin/pip", "install", "--upgrade", "pip"
     system venv_dir/"bin/pip", "install", buildpath
   end
 
-  def post_install
-    venv_dir = var/"lib/bulkman/venv"
-    return if (venv_dir/"bin/python3").exist?
-
-    system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
-    system venv_dir/"bin/pip", "install", "--upgrade", "pip"
-    system venv_dir/"bin/pip", "install", "bulkman==#{version}"
-  end
-
   test do
-    system Formula["python@3.12"].opt_bin/"python3.12", "-c", "import bulkman"
+    system libexec/"bin/python3.12", "-c", "import bulkman"
   end
 end
