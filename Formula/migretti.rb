@@ -5,10 +5,12 @@ class Migretti < Formula
   sha256 "7051b4bec5e1c74ca40ab8698b41063f0a1563db6a71ce8014fae8c3482d0374"
   license "Apache-2.0"
 
+  depends_on "libpq"
   depends_on "python@3.12"
 
   def install
     venv_dir = var/"lib/migretti/venv"
+    libpq = Formula["libpq"].opt_lib
 
     system Formula["python@3.12"].opt_bin/"python3.12", "-m", "venv", "--clear", venv_dir
     system venv_dir/"bin/pip", "install", "--upgrade", "pip"
@@ -16,10 +18,12 @@ class Migretti < Formula
 
     (bin/"mg").write <<~EOS
       #!/bin/bash
+      export DYLD_LIBRARY_PATH="#{libpq}:${DYLD_LIBRARY_PATH:+$DYLD_LIBRARY_PATH}"
       exec "#{venv_dir}/bin/mg" "$@"
     EOS
     (bin/"migretti").write <<~EOS
       #!/bin/bash
+      export DYLD_LIBRARY_PATH="#{libpq}:${DYLD_LIBRARY_PATH:+$DYLD_LIBRARY_PATH}"
       exec "#{venv_dir}/bin/migretti" "$@"
     EOS
   end
