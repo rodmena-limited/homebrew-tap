@@ -1,0 +1,53 @@
+name: Update formulae from PyPI
+
+on:
+  schedule:
+    # Run every Monday at 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch: # Allow manual trigger
+
+jobs:
+  update:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check for available updates
+        id: check
+        continue-on-error: true
+        run: |
+          python3 scripts/update.py --dry-run
+        # Exit code 1 means updates are available
+
+      - name: Apply updates
+        if: steps.check.outcome == 'failure'
+        run: python3 scripts/update.py
+
+      - name: Create Pull Request
+        if: steps.check.outcome == 'failure'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "chore: update formulae to latest PyPI versions"
+          branch: auto/update-formulae
+          delete-branch: true
+          base: main
+          title: "chore: update formulae to latest PyPI versions"
+          body: |
+            Automated update triggered by the scheduled CI workflow.
+
+            Changes applied by `scripts/update.py` — each formula's `url`
+            and `sha256` updated to the latest sdist published on PyPI.
+
+            To review: `git diff main..auto/update-formulae`
+
+            If this PR is merged, run `brew update && brew upgrade` to
+            pick up the new versions.
+          labels: |
+            automated
+            dependencies
