@@ -30,6 +30,6 @@ class ResilientCircuit < Formula
   end
 
   test do
-    assert_match "resilient-circuit", shell_output("#{bin}/resilient-circuit --help")
+    assert_match "circutbreaker", shell_output("#{bin}/resilient-circuit --help")
   end
 end
