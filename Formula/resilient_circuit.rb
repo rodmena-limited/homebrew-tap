@@ -1,8 +1,8 @@
 class ResilientCircuit < Formula
   desc "A resilient circuit breaker and retry library with PostgreSQL support for distributed systems"
   homepage "https://github.com/rodmena-limited/resilient-circuit"
-  url "https://files.pythonhosted.org/packages/6a/23/dfb65b05bbb5b8613a8db71df638b1d5cd7a6a89032b8aa9d0831884fdfd/resilient_circuit-0.4.7.tar.gz"
-  sha256 "8a47fdafdace32a3c86829c0a05acebb051dced98e62eb485a1178cddafe6c7b"
+  url "https://files.pythonhosted.org/packages/23/96/c2f48ecdc70c170a81e0d22149c0f84f5e8d5d88106804d46d6db105e14d/resilient_circuit-0.8.3.tar.gz"
+  sha256 "e958193c6d1fe71a8882768d103ec981170c3ae4b20cdf1636a3ddd0a1cc0d00"
   license "Apache-2.0"
 
   depends_on "python@3.12"

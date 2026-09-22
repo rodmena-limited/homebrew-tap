@@ -1,8 +1,8 @@
 class Datashard < Formula
   desc "Safe concurrent data operations for ML/AI workloads, Python implementation of Apache Iceberg concepts with S3 support"
   homepage "https://github.com/rodmena-limited/datashard"
-  url "https://files.pythonhosted.org/packages/c4/0b/fe49ce5f35fc79589936369560da8259ca0bd843a3fc8745fb8d67d04947/datashard-0.7.0.tar.gz"
-  sha256 "b9026b9a9cf56049ffe1cc5eb4bab5ba45e5417fed74875d42d7bab5de2e132d"
+  url "https://files.pythonhosted.org/packages/1f/39/54cf3ce93001b1c0d06bab6f1c2358813b293da42881a13e06c61abce6d5/datashard-0.11.2.tar.gz"
+  sha256 "fba3a8d9e9c2fb258041bd35845922991d222103b49784f636e0c8b96866e36e"
   license "Apache-2.0"
 
   depends_on "python@3.12"

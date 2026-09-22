@@ -1,8 +1,8 @@
 class Supervice < Formula
   desc "A modern, async process supervisor for Unix-like systems. Zero dependencies."
   homepage "https://github.com/rodmena-limited/supervice"
-  url "https://files.pythonhosted.org/packages/13/e6/dcc1a5480ac685ef5369fc19f0ef12b7fb56c26918a9e3ad796693346785/supervice-0.2.1.tar.gz"
-  sha256 "ba9eef186691e867987c22fdd55113b6ab0396ffe5d5c1a81c6aa59c358b411a"
+  url "https://files.pythonhosted.org/packages/ae/f5/9a31baf17c123d3d701ab378571068aa234e594d1d5cef1691a4fe2a48a2/supervice-0.4.2.tar.gz"
+  sha256 "2fe8a063f55b7721a4a3589b77e0c6f4cfd4e3444bc021663fb372f2d8da02fb"
   license "Apache-2.0"
 
   depends_on "python@3.12"

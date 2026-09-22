@@ -11,13 +11,21 @@ check:            ## Dry-run: check for updates (exits 1 if any available)
 	python3 scripts/update.py --dry-run
 
 fetch:            ## Download source archives to verify URL & SHA256
+	@# NOT $${f//_/-}: the formula name IS the file name, underscores and
+	@# all. resilient_circuit is a real formula and resilient-circuit is
+	@# not, so that substitution made this target fail on the one formula
+	@# whose name contains an underscore -- and pass on every other, which
+	@# is why it went unnoticed.
 	@for f in $(NAMES); do \
 		echo "==> $$f"; \
-		brew fetch "$(TAP)/$${f//_/-}"; \
+		brew fetch --formula "$(TAP)/$$f" || exit 1; \
 	done
 
 audit:            ## Run brew audit --strict on all formulae
-	brew audit --strict $(FORMULAE)
+	@# By TAP, not by path: `brew audit [path ...]` is disabled in current
+	@# Homebrew and exits with "Use `brew audit [name ...]` instead", so
+	@# this target could not run at all.
+	brew audit --strict --tap $(TAP)
 
 test: fetch audit ## Fetch + audit (safe CI check without full install)
 

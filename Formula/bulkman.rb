@@ -1,8 +1,8 @@
 class Bulkman < Formula
   desc "Bulkhead pattern implementation with Trio for structured concurrency and resilient circuit breaking"
   homepage "https://github.com/rodmena-limited/bulkman"
-  url "https://files.pythonhosted.org/packages/31/34/899ccca1fa2f872df3c09cb194997239cf5cd0858747d6631e06649b8879/bulkman-1.2.2.tar.gz"
-  sha256 "5b68a221a783ad8970e0ce1a4fb8bd534a64e9a396fee3f768da5c21dbc948e8"
+  url "https://files.pythonhosted.org/packages/ad/b4/3e80de8dd30db81e52e05878a0eeb4a02d47053b57b4bbd2a605872fb724/bulkman-2.0.4.tar.gz"
+  sha256 "8961d3be768c355710ff92c4d67cdbb0dd577fd06a890b2ec29324cc06b9315d"
   license "Apache-2.0"
 
   depends_on "python@3.12"

@@ -1,8 +1,8 @@
 class Issuedb < Formula
   desc "Command-line issue tracking system for software development projects"
   homepage "https://pypi.org/project/issuedb/"
-  url "https://files.pythonhosted.org/packages/e2/62/dd400da7b6227c4c9397ffd02f9191871ac9971625a242ea0adfdc197e98/issuedb-2.12.0.tar.gz"
-  sha256 "b664fe0a9abf767fc373cda5e5361c852f784b1478af6c684bf3904cf0bfccbf"
+  url "https://files.pythonhosted.org/packages/ad/fb/dafd0e9ad727a59f474f9f2df97d1f78c921bec6c6344a2855a210e0289f/issuedb-2.38.1.tar.gz"
+  sha256 "4b193c83ad2f849b6b3716195c96e03fa656b7205a71218912a7dec717cd50f2"
   license "Apache-2.0"
 
   depends_on "python@3.12"

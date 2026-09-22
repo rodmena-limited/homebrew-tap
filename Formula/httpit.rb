@@ -3,7 +3,10 @@ class Httpit < Formula
   homepage "https://github.com/rodmena-limited/fasthttp"
   url "https://files.pythonhosted.org/packages/a4/6f/313aba777a3e78e74873a7ab917c338ef7e97e0da482daf636b11a9fad94/httpit-1.21.7.tar.gz"
   sha256 "b269860e255a82be95f5ebb225f20468b0d74fd22593befd75161c79c1b47163"
-  license "GPL-2.0"
+  # GPL-2.0 is deprecated in SPDX. Upstream declares "GPL-2.0" with the
+  # classifier "GNU General Public License v2 (GPLv2)" -- v2, not "or
+  # later" -- which is GPL-2.0-only in current SPDX.
+  license "GPL-2.0-only"
 
   depends_on "python@3.12"
 
