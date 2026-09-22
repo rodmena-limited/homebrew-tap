@@ -15,21 +15,23 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
+      # `outputs.updates`, not the exit code. Keying off the exit code
+      # conflated "there is work to do" with "this script fell over": a PyPI
+      # outage returns 1 too, and the workflow would then apply nothing and
+      # open an empty pull request.
       - name: Check for available updates
         id: check
         continue-on-error: true
-        run: |
-          python3 scripts/update.py --dry-run
-        # Exit code 1 means updates are available
+        run: python3 scripts/update.py --dry-run
 
       - name: Apply updates
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outputs.updates == 'true'
         run: python3 scripts/update.py
 
       - name: Create Pull Request
-        if: steps.check.outcome == 'failure'
+        if: steps.check.outputs.updates == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -51,3 +53,13 @@ jobs:
           labels: |
             automated
             dependencies
+
+      # The check step is allowed to fail because exit 1 is how it says
+      # "updates available". That tolerance must not extend to the script
+      # actually breaking, or a tap that cannot be checked at all reports a
+      # green run.
+      - name: Fail if the update check errored
+        if: steps.check.outputs.errors != '0' && steps.check.outputs.errors != ''
+        run: |
+          echo "scripts/update.py reported ${{ steps.check.outputs.errors }} error(s)" >&2
+          exit 1

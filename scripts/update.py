@@ -25,6 +25,18 @@ PYPI_API = "https://pypi.org/pypi/{}/json"
 USER_AGENT = "homebrew-tap-updater/1.0"
 
 
+def emit_github_output(**values):
+    """Write `key=value` lines to $GITHUB_OUTPUT when running under Actions."""
+    path = os.environ.get("GITHUB_OUTPUT")
+    if not path:
+        return
+    with open(path, "a") as fh:
+        for key, value in values.items():
+            if isinstance(value, bool):
+                value = "true" if value else "false"
+            fh.write(f"{key}={value}\n")
+
+
 # ── Helpers ──────────────────────────────────────────────────────────
 
 def pypi_json(package_name):
@@ -199,6 +211,13 @@ def main():
         for e in errors:
             print(f"  error: {e}", file=sys.stderr)
 
+    # Machine-readable, for CI. Keying the later workflow steps off an exit
+    # code conflates "updates are available" with "this script fell over" --
+    # a PyPI outage produced errors, returned 1, and looked exactly like
+    # work to do.
+    emit_github_output(updates=bool(updates), count=len(updates),
+                       errors=len(errors))
+
     if args.dry_run:
         if updates:
             print(f"\n→ {len(updates)} update(s) available")
@@ -220,7 +239,19 @@ def main():
     print(f"\n─── {len(updates)} updated, {up_to_date} up-to-date"
           f"{', ' + str(len(errors)) + ' errors' if errors else ''} ───")
 
-    return 1 if updates else 0
+    # 0. Applying updates successfully is SUCCESS.
+    #
+    # This returned `1 if updates else 0`, which meant the apply step of the
+    # scheduled workflow failed precisely when it had done its job. The job
+    # stopped there, `create-pull-request` never ran, and the rewritten
+    # formulae were discarded with the runner. It detected the same eight
+    # stale formulae every Monday for months and threw the work away every
+    # time, while reporting a red run that looked like an infrastructure
+    # problem rather than a logic one.
+    #
+    # The dry-run convention above is different and deliberate: 1 there
+    # means "there is work to do", which is what `make check` is asking.
+    return 1 if errors else 0
 
 
 if __name__ == "__main__":
