@@ -1,8 +1,8 @@
 class Scriptplan < Formula
   desc "Precise project scheduling engine with minute-level accuracy"
   homepage "https://pypi.org/project/scriptplan/"
-  url "https://files.pythonhosted.org/packages/94/51/29f13fbf320761d6d55260ee73a469b5b27d257903946cc29084f1d3e1eb/scriptplan-0.10.0.tar.gz"
-  sha256 "d819d6146c9b4becb3bafbc3db12243f70cd180512fe441560c2f9cb0a4a1234"
+  url "https://files.pythonhosted.org/packages/3a/be/bc8a6b00a8bf3b78d565ff9c07b3b662115ad35463c77bd82334adc0b5a8/scriptplan-0.10.2.tar.gz"
+  sha256 "aeb73459e69f46ea770b3866db9f269cfc92cb0a27c0f153609452603ef73b5c"
   license "Apache-2.0"
 
   depends_on "python@3.12"
