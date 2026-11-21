@@ -1,8 +1,8 @@
 class Retunnel < Formula
   desc "Secure tunnel service to expose local servers to the internet"
-  homepage "https://docs.retunnel.com"
-  url "https://files.pythonhosted.org/packages/16/55/b62f4f41459901552256b1b94ddfec4c59aebeb2ed74798bd9a9ac56ea75/retunnel-3.2.1.tar.gz"
-  sha256 "1b75c255d95b9133df7b344e6d7aa8614036b7d02f75e9513191a79e7df853e5"
+  homepage "https://retunnel.com"
+  url "https://files.pythonhosted.org/packages/e8/ab/5e6ecea22d22eb274002e43c4c13f8093b4c7280b5d45ee020a934b2cc46/retunnel-3.3.3.tar.gz"
+  sha256 "4477da7a3df6fb5f2a478e7b32c9d9dd9c73dc81bd1219f872440ad5411d52f4"
   license "MIT"
 
   depends_on "python@3.12"
