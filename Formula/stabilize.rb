@@ -1,8 +1,8 @@
 class Stabilize < Formula
   desc "Stabilize Workflow Orchestration - Agentic Parallel Workflows"
   homepage "https://github.com/rodmena-limited/stabilize"
-  url "https://files.pythonhosted.org/packages/08/0a/7e84dbf93c7567794b34340e1eaf5a7e9d657da644003200e76a0edafddf/stabilize-0.29.0.tar.gz"
-  sha256 "e5c01eb5f91354315e57f6493995317e940d006e6424866057a2037b8331f028"
+  url "https://files.pythonhosted.org/packages/82/26/e6479206c5add956dd93b115999a8f5f40994d326754324f16f320e65dc0/stabilize-0.34.5.tar.gz"
+  sha256 "4588adaf2e83e21382a8658ffe9258275e250ed021ca82051e58c2f2597d104c"
   license "Apache-2.0"
 
   depends_on "python@3.12"
